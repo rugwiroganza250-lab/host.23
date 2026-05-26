@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rugwiro Ganza Miguel - Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- FontAwesome for Icons (Replacing Lucide-React) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom styles for animations that Tailwind can't do natively via CDN */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        .animate-bounce-slow {
+            animation: bounce 2s infinite;
+        }
+        /* Scroll fade-in utility classes */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-black text-white overflow-x-hidden">
+
+    <div id="app">
+        <!-- 1. HERO SECTION -->
+        <section class="relative h-screen flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center opacity-20"
+                 style="background-image: url('https://images.unsplash.com/photo-1600534220378-df36338afc40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080')">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black via-black/50 to-black"></div>
+
+            <div class="relative z-10 text-center px-4">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 tracking-tight uppercase">
+                    Rugwiro Ganza
+                </h1>
+                <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 bg-gradient-to-r from-orange-500 via-red-500 to-purple-600 bg-clip-text text-transparent uppercase">
+                    Miguel
+                </h2>
+                <p class="text-xl md:text-2xl text-gray-300 mb-12">
+                    Portfolio | Basketball Enthusiast | Creative Professional
+                </p>
+                <div class="flex gap-4 justify-center mb-16">
+                    <div class="px-8 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+                        <span class="text-orange-500 font-bold">#2</span> Kyrie Irving
+                    </div>
+                    <div class="px-8 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+                        <span class="text-purple-500 font-bold">#5</span> Anthony Edwards
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce-slow">
+                <i class="fa-solid fa-chevron-down text-2xl text-white/50"></i>
+            </div>
+        </section>
+
+        <!-- 2. ABOUT SECTION -->
+        <section v-observe class="py-24 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-black to-zinc-900 fade-in-element">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-center">About Me</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <p class="text-lg text-gray-300 leading-relaxed">
+                            Welcome to my portfolio. I'm Rugwiro Ganza Miguel, a passionate individual inspired by the dedication and excellence of basketball legends.
+                        </p>
+                        <p class="text-lg text-gray-300 leading-relaxed">
+                            Just like Kyrie Irving's precision and Anthony Edwards' explosive energy, I bring creativity, determination, and a winning mindset to everything I do.
+                        </p>
+                        <div class="flex gap-4 flex-wrap">
+                            <div class="px-6 py-3 bg-orange-500/20 border border-orange-500/50 rounded-lg">
+                                <span class="text-orange-400">Creative</span>
+                            </div>
+                            <div class="px-6 py-3 bg-purple-500/20 border border-purple-500/50 rounded-lg">
+                                <span class="text-purple-400">Innovative</span>
+                            </div>
+                            <div class="px-6 py-3 bg-blue-500/20 border border-blue-500/50 rounded-lg">
+                                <span class="text-blue-400">Dedicated</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative h-96 rounded-2xl overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-orange-500/30 via-purple-500/30 to-blue-500/30"></div>
+                        <img src="https://images.unsplash.com/photo-1552984418-b55abf780dd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" 
+                             alt="Basketball court" class="w-full h-full object-cover mix-blend-overlay">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. FEATURED PLAYERS SECTION -->
+        <section v-observe class="py-24 px-4 md:px-8 lg:px-16 bg-zinc-900 fade-in-element">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">Featured Players</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div v-for="player in players" :key="player.name" class="group relative overflow-hidden rounded-2xl bg-black border border-white/10 hover:border-white/30 transition-all duration-300">
+                        <div class="relative h-96 overflow-hidden">
+                            <img :src="player.image" :alt="player.name" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div :class="['absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity bg-gradient-to-t', player.gradient]"></div>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="text-3xl font-bold">{{ player.name }}</h3>
+                                    <p class="text-gray-400">{{ player.team }}</p>
+                                </div>
+                                <span :class="['text-5xl font-bold bg-gradient-to-r bg-clip-text text-transparent', player.gradient]">
+                                    {{ player.number }}
+                                </span>
+                            </div>
+                            <p class="text-gray-300 mb-6 leading-relaxed">{{ player.description }}</p>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div v-for="stat in player.stats" :key="stat.label" class="text-center p-4 bg-white/5 rounded-lg">
+                                    <i :class="[stat.icon, 'text-xl mb-2', player.iconColor]"></i>
+                                    <div class="font-bold text-xl">{{ stat.value }}</div>
+                                    <div class="text-xs text-gray-400">{{ stat.label }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. SKILLS SECTION -->
+        <section v-observe class="py-24 px-4 md:px-8 lg:px-16 bg-gradient-to-b from-zinc-900 to-black fade-in-element">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Skills & Attributes</h2>
+                    <p class="text-gray-400 text-lg">Like a championship team, built on strong fundamentals</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div v-for="skill in skills" :key="skill.title" class="p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 hover:border-white/30 transition-all duration-300 hover:transform hover:scale-105">
+                        <div :class="['w-14 h-14 mb-6 rounded-xl flex items-center justify-center', skill.bgColor]">
+                            <i :class="[skill.icon, 'text-xl', skill.textColor]"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">{{ skill.title }}</h3>
+                        <p class="text-gray-400 mb-6">{{ skill.description }}</p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-400">Proficiency</span>
+                                <span :class="['font-bold', skill.textColor]">{{ skill.percentage }}%</span>
+                            </div>
+                            <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                <!-- Reactive dynamic width bar -->
+                                <div class="h-full bg-gradient-to-r transition-all duration-1000 ease-out"
+                                     :class="skill.barGradient"
+                                     :style="{ width: skill.percentage + '%' }">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CONTACT SECTION -->
+        <section v-observe class="py-24 px-4 md:px-8 lg:px-16 bg-black fade-in-element">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Let's Connect</h2>
+                <p class="text-xl text-gray-400 mb-12">Ready to make something amazing together? Reach out and let's start the conversation.</p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-6 mb-16">
+                    <a v-for="social in socials" :key="social.label" :href="social.href"
+                       :class="['group p-6 rounded-xl bg-white/5 border border-white/10 transition-all duration-300', social.hoverBorder, social.hoverBg]">
+                        <i :class="[social.icon, 'text-3xl mx-auto mb-3 text-gray-400 transition-colors', social.hoverText]"></i>
+                        <p class="text-sm text-gray-400 group-hover:text-white transition-colors">{{ social.label }}</p>
+                    </a>
+                </div>
+
+                <div class="p-12 rounded-2xl bg-gradient-to-br from-orange-500/20 via-purple-500/20 to-blue-500/20 border border-white/20">
+                    <h3 class="text-3xl font-bold mb-4">RUGWIRO GANZA MIGUEL</h3>
+                    <p class="text-gray-300 mb-6">Inspired by champions. Driven by passion. Ready for the next challenge.</p>
+                    <div class="flex gap-3 justify-center flex-wrap">
+                        <span class="px-4 py-2 bg-orange-500/30 rounded-full text-sm border border-orange-500/50">#2 Kyrie Irving</span>
+                        <span class="px-4 py-2 bg-purple-500/30 rounded-full text-sm border border-purple-500/50">#5 Anthony Edwards</span>
+                    </div>
+                </div>
+
+                <div class="mt-16 pt-8 border-t border-white/10">
+                    <p class="text-gray-500 text-sm">© 2026 Rugwiro Ganza Miguel. Built with passion and precision.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Vue App Script -->
+    <script>
+        const { createApp, ref } = Vue;
+
+        const app = createApp({
+            setup() {
+                // Players Data
+                const players = ref([
+                    {
+                        name: "Kyrie Irving",
+                        number: "#2",
+                        team: "Dallas Mavericks",
+                        image: "https://images.unsplash.com/flagged/photo-1580051579393-2e94dd6f4789?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+                        gradient: "from-orange-500 to-red-500",
+                        iconColor: "text-orange-500",
+                        description: "Master of handles and clutch performances. Known for his incredible ball-handling skills and ability to score in crucial moments.",
+                        stats: [
+                            { label: "PPG", value: "27.1", icon: "fa-solid fa-trophy" },
+                            { label: "APG", value: "5.5", icon: "fa-solid fa-fire" },
+                            { label: "Handles", value: "Elite", icon: "fa-solid fa-bolt" }
+                        ]
+                    },
+                    {
+                        name: "Anthony Edwards",
+                        number: "#5",
+                        team: "Minnesota Timberwolves",
+                        image: "https://images.unsplash.com/photo-1581390720252-314bac5f2b18?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+                        gradient: "from-purple-500 to-blue-500",
+                        iconColor: "text-purple-500",
+                        description: "Explosive athleticism and fearless scoring. Rising superstar with unlimited potential and electrifying playing style.",
+                        stats: [
+                            { label: "PPG", value: "25.9", icon: "fa-solid fa-trophy" },
+                            { label: "RPG", value: "5.4", icon: "fa-solid fa-fire" },
+                            { label: "Energy", value: "100%", icon: "fa-solid fa-bolt" }
+                        ]
+                    }
+                ]);
+
+                // Skills Data
+                const skills = ref([
+                    { title: "Precision", description: "Attention to detail in every project", percentage: 95, icon: "fa-solid fa-crosshairs", textColor: "text-orange-500", bgColor: "bg-orange-500/20", barGradient: "from-orange-500 to-orange-600" },
+                    { title: "Teamwork", description: "Collaborative and supportive", percentage: 90, icon: "fa-solid fa-users", textColor: "text-purple-500", bgColor: "bg-purple-500/20", barGradient: "from-purple-500 to-purple-600" },
+                    { title: "Innovation", description: "Creative problem-solving approach", percentage: 88, icon: "fa-solid fa-lightbulb", textColor: "text-blue-500", bgColor: "bg-blue-500/20", barGradient: "from-blue-500 to-blue-600" },
+                    { title: "Growth Mindset", description: "Continuous learning and improvement", percentage: 92, icon: "fa-solid fa-chart-line", textColor: "text-green-500", bgColor: "bg-green-500/20", barGradient: "from-green-500 to-green-600" },
+                    { title: "Excellence", description: "Committed to high-quality results", percentage: 94, icon: "fa-solid fa-award", textColor: "text-red-500", bgColor: "bg-red-500/20", barGradient: "from-red-500 to-red-600" },
+                    { title: "Passion", description: "Driven by enthusiasm and dedication", percentage: 98, icon: "fa-solid fa-heart", textColor: "text-pink-500", bgColor: "bg-pink-500/20", barGradient: "from-pink-500 to-pink-600" }
+                ]);
+
+                // Social Links Data
+                const socials = ref([
+                    { label: "Email", href: "mailto:miguel@example.com", icon: "fa-solid fa-envelope", hoverBorder: "hover:border-orange-500/50", hoverBg: "hover:bg-orange-500/10", hoverText: "group-hover:text-orange-500" },
+                    { label: "LinkedIn", href: "#", icon: "fa-brands fa-linkedin", hoverBorder: "hover:border-blue-500/50", hoverBg: "hover:bg-blue-500/10", hoverText: "group-hover:text-blue-500" },
+                    { label: "GitHub", href: "#", icon: "fa-brands fa-github", hoverBorder: "hover:border-purple-500/50", hoverBg: "hover:bg-purple-500/10", hoverText: "group-hover:text-purple-500" },
+                    { label: "Twitter", href: "#", icon: "fa-brands fa-x-twitter", hoverBorder: "hover:border-cyan-500/50", hoverBg: "hover:bg-cyan-500/10", hoverText: "group-hover:text-cyan-500" },
+                    { label: "Instagram", href: "#", icon: "fa-brands fa-instagram", hoverBorder: "hover:border-pink-500/50", hoverBg: "hover:bg-pink-500/10", hoverText: "group-hover:text-pink-500" }
+                ]);
+
+                return { players, skills, socials };
+            }
+        });
+
+        // Custom Vue Directive for Scroll Animations (Intersection Observer)
+        app.directive('observe', {
+            mounted(el) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target); // Trigger only once
+                        }
+                    });
+                }, { rootMargin: "-100px" });
+                observer.observe(el);
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
